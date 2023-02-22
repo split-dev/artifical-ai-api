@@ -5,7 +5,7 @@ const storage = new AWS.S3();
 export const write = async (filename, buffer) => {
     await storage.putObject({
         Body: buffer,
-        Bucket: process.env.BUCKET,
+        Bucket: process.env.CYCLIC_BUCKET_NAME,
         ACL: 'public-read',
         ContentType: 'image/png',
         Key: filename,
@@ -17,7 +17,7 @@ export const write = async (filename, buffer) => {
 export const read = async (filename) => {
     try {
         let s3File = await storage.getObject({
-          Bucket: process.env.BUCKET,
+          Bucket: process.env.CYCLIC_BUCKET_NAME,
           Key: filename,
         }).promise();
     
