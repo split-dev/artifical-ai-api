@@ -6,6 +6,8 @@ export const write = async (filename, buffer) => {
     await storage.putObject({
         Body: buffer,
         Bucket: process.env.BUCKET,
+        ACL: 'public-read',
+        ContentType: 'image/png',
         Key: filename,
       }).promise();
 
