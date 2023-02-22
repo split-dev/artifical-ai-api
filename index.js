@@ -1,7 +1,9 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 
+console.log('process.env', process.env);
 dotenv.config();
+console.log('process.env 2', process.env);
 
 import cors from 'cors';
 import bodyParser from 'body-parser';
