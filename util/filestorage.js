@@ -1,6 +1,6 @@
-import { S3 } from 'aws-sdk';
+import  * as AWS from 'aws-sdk';
 
-const storage = new S3();
+const storage = new AWS.S3();
 
 export const write = async (filename, buffer) => {
     await storage.putObject({
