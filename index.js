@@ -1,15 +1,23 @@
-import { api } from '@serverless/cloud';
+import express from 'express';
 import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 import cors from 'cors';
+import bodyParser from 'body-parser';
+
 import { promptGenerate, allPromptsGenerate, promptDiffusion } from './util/prompt-handler';
 import { combineTShirtImage, resizeImage } from './util/image-handler';
 import { imagesCollection } from './util/db';
+import { read } from './util/filestorage';
 
-dotenv.config();
+const api = express();
+
 api.use(cors());
+api.use(bodyParser.json());
 
 api.get('/', async (req, res) => {
-  res.send('<h1>Hello Serverless Cloud!</h1>');
+  res.send('<h1>Hello!</h1>');
 });
 
 
@@ -180,4 +188,24 @@ api.get('/prompt', async (req, res) => {
   const prediction = await response.json();
 
   res.end(JSON.stringify(prediction));
+});
+
+api.get('/images/:image', async (req, res) => {
+    const { image } = req.params;
+
+    if (!image) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ detail: 'No image name provided!' }));
+    } else {
+      const fileResult = await read(image);
+
+      if (fileResult.error) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ detail: fileResult.error }));
+      } else {
+        res.statusCode = 200;
+        res.set('Content-type', fileResult.ContentType);
+        res.send(fileResult.Body.toString()).end();
+      }
+    }
 });

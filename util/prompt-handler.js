@@ -1,24 +1,22 @@
-import { data, params } from '@serverless/cloud';
 const IMAGE_MAX_SIZE = {
     width: 512,
     height: 576,
 };
-const HOST = params.CLOUD_URL;
+const HOST = process.env.HOST || 'localhost';
 const IMAGES_PER_REQUEST = 2;
+const promptData = import('prompt-data');
 
 async function promptGenerate(prompt) {
-    const texts = await data.get('extend-text:*');
-    const randomKey1 = Math.floor(Math.random() * (texts.items.length / 2)) + texts.items.length - 2;
-    const randomKey2 = Math.floor(Math.random() * (texts.items.length / 2));
+    const randomKey1 = Math.floor(Math.random() * (promptData.length / 2)) + promptData.length - 2;
+    const randomKey2 = Math.floor(Math.random() * (promptData.length / 2));
 
-    return [`${prompt}, ${texts.items[randomKey1].value}`, `${prompt}, ${texts.items[randomKey2].value}`];
+    return [`${prompt}, ${promptData[randomKey1].value}`, `${prompt}, ${promptData[randomKey2].value}`];
 }
 
 async function allPromptsGenerate(prompt) {
-    const texts = await data.get('extend-text:*');
     const prompts = [];
 
-    texts.items.forEach((item) => {
+    promptData.forEach((item) => {
       prompts.push(`${prompt}, ${item.value}`);
     });
 

@@ -1,7 +1,9 @@
 import Jimp from 'jimp';
-import { params, storage } from '@serverless/cloud';
-const HOST = params.CLOUD_URL;
-const tShirtMockupPath = `${HOST}/public/t-shirt-mockup.png`;
+import { write } from './util/filestorage';
+
+const HOST = process.env.HOST || 'localhost';
+
+const tShirtMockupPath = `${HOST}/images/t-shirt-mockup.png`;
 const tShirtMockup = await Jimp.read(tShirtMockupPath);
 const TSHIRT_URL_PREFIX = 't-shirt-image';
 const IMAGE_URL_PREFIX = 'small-image';
@@ -46,12 +48,12 @@ async function combineTShirtImage(img, id) {
     const standardImgBuffer = await srcImage.getBufferAsync(Jimp.MIME_PNG); /** SMALL SRC IMG */
     const tShirtResultBuffer = await composeImageTShirt.getBufferAsync(Jimp.MIME_PNG); /** RESULT WITH T-SHIRT */
 
-    storage.write(`public/${IMAGE_URL_PREFIX}-${uniqueNumber}.png`, standardImgBuffer);
-    storage.write(`public/${TSHIRT_URL_PREFIX}-${uniqueNumber}.png`, tShirtResultBuffer);
+    write(`${IMAGE_URL_PREFIX}-${uniqueNumber}.png`, standardImgBuffer);
+    write(`${TSHIRT_URL_PREFIX}-${uniqueNumber}.png`, tShirtResultBuffer);
 
     return {
-        imageStandard: `${HOST}/public/${IMAGE_URL_PREFIX}-${uniqueNumber}.png`,
-        tShirtResult: `${HOST}/public/${TSHIRT_URL_PREFIX}-${uniqueNumber}.png`,
+        imageStandard: `${HOST}/images/${IMAGE_URL_PREFIX}-${uniqueNumber}.png`,
+        tShirtResult: `${HOST}/images/${TSHIRT_URL_PREFIX}-${uniqueNumber}.png`,
     };
 }
 
