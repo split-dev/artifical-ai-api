@@ -15,13 +15,14 @@ import { read } from './util/filestorage.js';
 
 const api = express();
 
+api.use('/favicon.ico', express.static('./public/favicon.ico'));
 api.use(cors());
 api.use(bodyParser.json());
 
 api.get('/', async (req, res) => {
+  res.statusCode = 200;
   res.send('<h1>Hello!</h1>');
 });
-
 
 api.post('/prompt', async (req, res) => {
   let prompts;
@@ -210,4 +211,18 @@ api.get('/images/:image', async (req, res) => {
         res.send(fileResult.Body.toString()).end();
       }
     }
+});
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Catch all handler for all other request.
+api.use('*', (req,res) => {
+  res.sendStatus(404).end();
+});
+
+// /////////////////////////////////////////////////////////////////////////////
+// Start the server
+const port = process.env.PORT || 3000;
+api.listen(port, () => {
+  console.log(`index.js listening at http://localhost:${port}`);
 });

@@ -2,7 +2,7 @@ const IMAGE_MAX_SIZE = {
     width: 512,
     height: 576,
 };
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.CYCLIC_URL || 'localhost';
 const IMAGES_PER_REQUEST = 2;
 import promptData from './prompt-data.js';
 

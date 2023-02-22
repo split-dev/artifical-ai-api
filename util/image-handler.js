@@ -1,7 +1,7 @@
 import Jimp from 'jimp';
 import { write } from './filestorage.js';
 
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.CYCLIC_URL || 'localhost';
 
 const tShirtMockupPath = './public/t-shirt-mockup.png';
 const tShirtMockup = await Jimp.read(tShirtMockupPath);
