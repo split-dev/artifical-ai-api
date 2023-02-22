@@ -207,7 +207,7 @@ api.get('/images/:image', async (req, res) => {
         res.end(JSON.stringify({ detail: fileResult.error }));
       } else {
         res.statusCode = 200;
-        res.set('Content-type', fileResult.ContentType);
+        res.set('Content-type', 'image/png');
         console.log('fileResult', fileResult);
         res.send(fileResult).end();
       }
