@@ -1,5 +1,5 @@
 import Jimp from 'jimp';
-import { write } from './util/filestorage';
+import { write } from './util/filestorage.js';
 
 const HOST = process.env.HOST || 'localhost';
 

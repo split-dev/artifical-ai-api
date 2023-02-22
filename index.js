@@ -8,10 +8,10 @@ console.log('process.env 2', process.env);
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { promptGenerate, allPromptsGenerate, promptDiffusion } from './util/prompt-handler';
-import { combineTShirtImage, resizeImage } from './util/image-handler';
-import { imagesCollection } from './util/db';
-import { read } from './util/filestorage';
+import { promptGenerate, allPromptsGenerate, promptDiffusion } from './util/prompt-handler.js';
+import { combineTShirtImage, resizeImage } from './util/image-handler.js';
+import { imagesCollection } from './util/db.js';
+import { read } from './util/filestorage.js';
 
 const api = express();
 

@@ -4,7 +4,7 @@ const IMAGE_MAX_SIZE = {
 };
 const HOST = process.env.HOST || 'localhost';
 const IMAGES_PER_REQUEST = 2;
-const promptData = import('prompt-data');
+const promptData = import('./prompt-data.json');
 
 async function promptGenerate(prompt) {
     const randomKey1 = Math.floor(Math.random() * (promptData.length / 2)) + promptData.length - 2;
