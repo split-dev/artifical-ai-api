@@ -3,7 +3,7 @@ import { write } from './filestorage.js';
 
 const HOST = process.env.HOST || 'localhost';
 
-const tShirtMockupPath = `${HOST}/images/t-shirt-mockup.png`;
+const tShirtMockupPath = './public/t-shirt-mockup.png';
 const tShirtMockup = await Jimp.read(tShirtMockupPath);
 const TSHIRT_URL_PREFIX = 't-shirt-image';
 const IMAGE_URL_PREFIX = 'small-image';
