@@ -208,7 +208,8 @@ api.get('/images/:image', async (req, res) => {
       } else {
         res.statusCode = 200;
         res.set('Content-type', fileResult.ContentType);
-        res.send(fileResult.Body.toString()).end();
+        console.log('fileResult', fileResult);
+        res.send(fileResult).end();
       }
     }
 });
